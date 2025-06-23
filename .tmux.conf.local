@@ -15,7 +15,7 @@
 #   - true
 #   - false (default)
 tmux_conf_preserve_stock_bindings=false
-
+bind -n C-k clear-history
 
 # -- session creation ----------------------------------------------------------
 
