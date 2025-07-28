@@ -15,7 +15,8 @@
 #   - true
 #   - false (default)
 tmux_conf_preserve_stock_bindings=false
-bind -n C-k clear-history
+# bind k send-keys "clear"\; send-keys "Enter"\; clear-history
+bind k send-keys -R \; clear-history
 
 # -- session creation ----------------------------------------------------------
 
