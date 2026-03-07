@@ -410,6 +410,18 @@ set -g mouse on
 bind h split-window -v
 bind v split-window -h
 
+# stay in copy mode on mouse select/double-click/triple-click
+# v toggles selection, Escape clears selection or exits copy mode
+bind -T copy-mode-vi v if-shell -F "#{selection_present}" "send-keys -X clear-selection" "send-keys -X begin-selection" #!important
+bind -T copy-mode-vi Escape if-shell -F "#{selection_present}" "send-keys -X clear-selection" "send-keys -X cancel" #!important
+
+# stay in copy mode on mouse select/double-click/triple-click
+bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-no-clear #!important
+bind -T copy-mode-vi DoubleClick1Pane select-pane \; send-keys -X select-word \; run-shell -d 0.3 \; send-keys -X copy-pipe-no-clear #!important
+bind -T copy-mode-vi TripleClick1Pane select-pane \; send-keys -X select-line \; run-shell -d 0.3 \; send-keys -X copy-pipe-no-clear #!important
+bind -T root DoubleClick1Pane select-pane -t = \; if-shell -F "#{||:#{pane_in_mode},#{mouse_any_flag}}" { send-keys -M } { copy-mode -H ; send-keys -X select-word ; run-shell -d 0.3 ; send-keys -X copy-pipe-no-clear } #!important
+bind -T root TripleClick1Pane select-pane -t = \; if-shell -F "#{||:#{pane_in_mode},#{mouse_any_flag}}" { send-keys -M } { copy-mode -H ; send-keys -X select-line ; run-shell -d 0.3 ; send-keys -X copy-pipe-no-clear } #!important
+
 
 # -- tpm -----------------------------------------------------------------------
 
